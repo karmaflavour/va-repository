@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>VA Exercise - JS basics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
+  </head>
+  <body>
+    <script>
+      let day_nr = new Date().getDay()
+      let weekday = "Unknown"
+      switch (day_nr) {
+        case 0:
+          weekday = "Sunday"
+          break
+        case 1:
+          weekday = "Monday"
+          break
+        case 2:
+          weekday = "Tuesday"
+          break
+        case 3:
+          weekday = "Wednesday"
+          break
+        case 4:
+          weekday = "Thursday"
+          break
+        case 5:
+          weekday = "Friday"
+          break
+        case 6:
+          weekday = "Saturday"
+          break
+      }
+      console.log("Hello world! Today is " + weekday)
+    </script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+		integrity=""sha512 -qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer"
+	></script >
+	<script src="utils.js"></script>
+	<script src="index.js"></script>
+  </body>
+</html>
