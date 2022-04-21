@@ -1,3 +1,5 @@
+const fs = require("fs")
+
 const port = 6789
 
 const express = require("express")
@@ -18,9 +20,19 @@ io.sockets.on("connection", (socket) => {
 }
 
     let get_example_data = (parameters) => {
-        console.log(`Received data request with these parameters: ${parameters}`)
-        socket.emit("example_data", { hello: "world" })
-}
+     console.log(`Received data request with these parameters: ${parameters}`)
+     fs.readFile("./data/testdata.json", "utf8", (err, data) => {
+         if (err) {
+             console.error(err)
+            return
+         }
+        let json_data = JSON.parse(data)
+        socket.emit("example_data", data)
+       })
+    }
+   
+
+
 
     socket.on("disconnect", disconnect)
     socket.on("get_example_data", get_example_data)
