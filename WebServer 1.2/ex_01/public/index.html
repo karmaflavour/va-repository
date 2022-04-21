@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="visva_sitelogo_no_white.png" />
     <link href="main.css" rel="stylesheet" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script type = "text/javascript" src="index.js"></script>  
   </head>
   <body>
     <div class="header">
@@ -22,16 +21,15 @@
         <button class="function_button" onclick="print_hello_world()">
           Say "Hello world!"
         </button>
+        <button class="function_button" onclick="request_example_data()">
+          Get Data
+          </button >
       </div>
     </div>
     <div class="content"></div>
     <script src="/socket.io/socket.io.js"></script>
-    <div class="buttons">
-      ...
-     <button class="function_button" onclick="request_example_data()">
-     Get Data
-     </button >
-     </div>
+    <script src="index.js"></script>
+   
     <!--<script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>-->
   </body>
 </html>
