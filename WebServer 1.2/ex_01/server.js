@@ -21,7 +21,7 @@ io.sockets.on("connection", (socket) => {
 
     let get_example_data = (parameters) => {
      console.log(`Received data request with these parameters: ${parameters}`)
-     fs.readFile("./data/testdata.json", "utf8", (err, data) => {
+     fs.readFile("./data/Feinstaub_2016.json", "utf8", (err, data) => {
          if (err) {
              console.error(err)
             return
