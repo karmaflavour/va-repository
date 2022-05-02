@@ -4,6 +4,7 @@ function print_hello_world() {
   console.log("Hello world!")
 }
 
+
 // this is working because of the import in the html file
 // https://socket.io/docs/v4/client -installation/#standalone -build
 
@@ -22,4 +23,8 @@ socket.on("example_data", (obj) => {
 
 function request_example_data() {
   socket.emit("get_example_data", { example_parameter: "hi" })
+}
+
+function request_feinstaub_2016(){
+  socket.emit("get_feinstaub_2016", { example_parameter: "hi" })
 }
