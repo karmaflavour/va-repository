@@ -8,7 +8,6 @@
     <link rel="icon" type="image/x-icon" href="visva_sitelogo_no_white.png" />
     <link href="main.css" rel="stylesheet" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
-
   </head>
   <body>
     <div class="header">
@@ -19,23 +18,32 @@
         src="visva_sitelogo_no_white.png"
       />
       <div class="buttons">
-        
-        
-        <button class="function_button" onclick="print_hello_world()">
-          Say "Hello world!"
-        </button>
-        <button class="function_button" onclick="request_example_data()">
-          Get Data
-          </button >
-        <button class="function_button" onclick="testDataChart()">
-          Particulate Matter 2016
-        </button >
-        
+
+        <button class="function_button" onclick="request_station_data()">Get Station Data</button>
+
+        <button class="function_button" onclick="access_station_data()">Access Station Data</button>
+
+        <button class="function_button" onclick="request_data_2016()">Get Data 2016</button>
+
+        <button class="function_button" onclick="access_data_2016()">Access Data 2016</button>
+
+        <button class="function_button" onclick="request_data_2017()">Get Data 2017</button>
+
+        <button class="function_button" onclick="access_data_2017()">Access Data 2017</button>
+
+        <button class="function_button" onclick="request_data_2018()">Get Data 2018</button>
+
+        <button class="function_button" onclick="access_data_2018()">Access Data 2018</button>
+
+        <button class="function_button" onclick="request_data_2019()">Get Data 2019</button>
+
+        <button class="function_button" onclick="access_data_2019()">Access Data 2019</button>
+
       </div>
     </div>
     <div class="content"></div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="index.js"></script>
-    <script src="dummy.js"></script>
   </body>
 </html>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="index.js"></script>
