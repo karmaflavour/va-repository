@@ -1,0 +1,17 @@
+{
+  "count": 6,
+  "indices": [
+    "scope id",
+    "scope code",
+    "scope time base",
+    "scope time scope",
+    "scope time is max",
+    "scope name"
+  ],
+  "1": ["1", "1TMW", "day", "86400", "0", "Daily average"],
+  "2": ["2", "1SMW", "hour", "3600", "0", "One hour average"],
+  "3": ["3", "1SMW_MAX", "hour", "3600", "1", "Maximum one hour average"],
+  "4": ["4", "8SMW", "hour", "28800", "0", "Eight hour average"],
+  "5": ["5", "8SMW_MAX", "hour", "28800", "1", "Maximum eight hour average"],
+  "6": ["6", "1TMWGL", "hour", "3600", "0", "floating hourly daily average"]
+}
