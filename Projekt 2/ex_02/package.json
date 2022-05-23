@@ -1,0 +1,17 @@
+{
+  "name": "ex_02",
+  "version": "1.0.0",
+  "description": "VA Exercise part 2",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.3",
+    "pca-js": "^1.0.2",
+    "socket.io": "^4.4.1"
+  }
+}
