@@ -70,7 +70,24 @@ body {
 
 }
 
+#scatterplot {
+  overflow: hidden;
+  height: 100%;
+  width: 50%;
+
+}
+
+
 #svgRoot{
   width: 40%;
   float:left;
+}
+
+.bubbles {
+  stroke-width: 1px;
+  stroke: black;
+  opacity: .8
+}
+.bubbles:hover {
+  stroke: black;
 }

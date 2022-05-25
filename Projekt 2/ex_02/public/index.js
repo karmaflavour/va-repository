@@ -326,6 +326,8 @@ socket.on("visualisation", (obj) => {
       .domain([0,30])
       .range([0, width]);
   
+      
+
   const histogram = d3.histogram()
       .domain(x.domain())
       .thresholds(x.ticks(nBin));
@@ -380,4 +382,283 @@ socket.on("visualisation", (obj) => {
       .attr("font-family" , "sans-serif")  
       .style("font-size", "20px")   
       .text("Distribution of station averages in 2019"); 
+})
+
+
+function paintScatterplot() {
+  socket.emit("paint_Scatterplot", {example_parameter : "hi"})
+}
+
+socket.on("scatterplot_drawing", (obj) => {
+  var values = Object.keys(obj).map(function(key) {return obj[key].avg;});
+  let min = d3.min(values)
+  let max = d3.max(values)
+  var dataset1 = [[90, 20], [20, 100], [66, 44], [53, 80], [24, 182], [80, 72], [10, 76], [33, 150], [100, 15]];
+
+
+  let dataset2 = [
+
+    {
+      "componentCode": "CO",
+      "pcaValue_1": 0.5,
+      "pcaValue_2": 0.13
+    },
+
+    {
+      "componentCode": "PM10",
+      "pcaValue_1": 0.12,
+      "pcaValue_2": 0.38
+    },
+
+    {
+      "componentCode": "O3",
+      "pcaValue_1": 0.7,
+      "pcaValue_2": 0.1
+    },
+
+    {
+      "componentCode": "SO2",
+      "pcaValue_1": 0.35,
+      "pcaValue_2": 0.43
+    },
+
+    {
+      "componentCode": "NO2",
+      "pcaValue_1": 0.31,
+      "pcaValue_2": 0.67
+    },
+
+    {
+      "componentCode": "PM10",
+      "pcaValue_1": 0.2,
+      "pcaValue_2": 0.83
+    },
+
+    {
+      "componentCode": "SO2",
+      "pcaValue_1": 0.8,
+      "pcaValue_2": 0.4
+    },
+
+    {
+      "componentCode": "N02",
+      "pcaValue_1": 0.44,
+      "pcaValue_2": 0.63
+    },
+
+    {
+      "componentCode": "O3",
+      "pcaValue_1": 0.12,
+      "pcaValue_2": 0.90
+    },
+
+    {
+      "componentCode": "PM10",
+      "pcaValue_1": 0.77,
+      "pcaValue_2": 0.23
+    },
+
+    {
+      "componentCode": "SO2",
+      "pcaValue_1": 0.31,
+      "pcaValue_2": 0.33
+    },
+
+    {
+      "componentCode": "CO",
+      "pcaValue_1": 0.44,
+      "pcaValue_2": 0.88
+    },
+    
+  ]
+
+// set the dimensions and margins of the graph
+const margin = {top: 75, right: 75, bottom: 100, left: 60},
+  width = parseInt(d3.select("#scatterplot").style("width")) - margin.left - margin.right,
+  height = parseInt(d3.select("#scatterplot").style("height")) - margin.top - margin.bottom;
+
+
+  //tooltip div that is hidden by default
+
+  var tooltip = d3.select("#scatterplot")
+    .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+      .style("background-color", "black")
+      .style("border-radius", "5px")
+      .style("padding", "10px")
+      .style("color", "white")
+
+  // -2- Create 3 functions to show / update (when mouse move but stay on same circle) / hide the tooltip
+  var showTooltip = function(d) {
+    tooltip
+      .transition()
+      .duration(200)
+    tooltip
+      .style("opacity", 1)
+      .html("Component: " + d.componentCode)
+      .style("left", (d3.mouse(this)[0]+30) + "px")
+      .style("top", (d3.mouse(this)[1]+30) + "px")
+  }
+  var moveTooltip = function(d) {
+    tooltip
+      .style("left", (d3.mouse(this)[0]+30) + "px")
+      .style("top", (d3.mouse(this)[1]+30) + "px")
+  }
+  var hideTooltip = function(d) {
+    tooltip
+      .transition()
+      .duration(200)
+      .style("opacity", 0)
+  }
+
+
+  //------//
+//add color range
+ var myColor = d3.scaleOrdinal()
+ .domain(["CO", "NO2", "O3", "PM10", "SO2"])
+ .range(["#ffb8b8", "#85ff85", "#72ffe6", "#56b5ff", "#d889ff"]);
+
+// append the svg object to the body of the page
+const svg = d3.select("#scatterplot")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+      "translate(" + margin.left + "," + margin.top + ")");
+
+//Read the data
+
+
+//Add initial X axis for animation
+var x = d3.scaleLinear()
+.domain([0, 0])
+.range([ 0, width ]);
+svg.append("g")
+.attr("class", "myXaxis")
+.attr("transform", "translate(0," + height + ")")
+.call(d3.axisBottom(x))
+.attr("opacity", "0")
+
+
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([0, 1])
+    .range([ height, 0]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
+
+  
+
+  
+  // Title
+        svg.append('text')
+        .attr('x', width/2)
+        .attr('y', 0)
+        .attr('text-anchor', 'middle')
+        .style('font-family', 'Helvetica')
+        .style('font-size', 20)
+        .text('Scatter Plot');
+        
+  // X label
+        svg.append('text')
+        .attr('x', width/2)
+        .attr('y', height + 50)
+        .attr('text-anchor', 'middle')
+        .style('font-family', 'Helvetica')
+        .style('font-size', 12)
+        .text('pcaValue_1');
+        
+   // Y label
+        svg.append('text')
+        .attr('text-anchor', 'middle')
+        .attr('transform', 'translate(-50,' + height/2 + ')rotate(-90)')
+        .style('font-family', 'Helvetica')
+        .style('font-size', 12)
+        .text('pcaValue_2');
+
+
+  
+  // What to do when one group is hovered
+  var highlight = function(d){
+    // reduce opacity of all groups
+    d3.selectAll(".bubbles").style("opacity", .05)
+    // expect the one that is hovered
+    d3.selectAll("."+d).style("opacity", 1)
+  }
+
+  // And when it is not hovered anymore
+  var noHighlight = function(d){
+    d3.selectAll(".bubbles").style("opacity", 1)
+  }
+
+  // Add dots
+  svg.append('g')
+    .selectAll("dot")
+    .data(dataset2)
+    .enter()
+    .append("circle")
+    .attr("cx", function (d) { return x(d.pcaValue_1); } )
+    .attr("cy", function (d) { return y(d.pcaValue_2); } )
+    .attr("r", 30)
+    
+    // -3- Trigger the functions for hover
+   // .on("mouseover", showTooltip )
+   // .on("mousemove", moveTooltip )
+   // .on("mouseleave", hideTooltip )
+    
+    //new X axis
+    
+    x.domain([0, 1])
+    svg.select(".myXaxis")
+    .transition()
+    .duration(2000)
+    .attr("opacity", "1")
+    .call(d3.axisBottom(x));
+
+   // return dots animation
+    svg.selectAll("circle")
+    .transition()
+    .delay(function(d,i){return(i*3)})
+    .duration(2000)
+    .attr("class", function(d) { return "bubbles " + d.componentCode })
+    .attr("cx", function (d) { return x(d.pcaValue_1); } )
+    .attr("cy", function (d) { return y(d.pcaValue_2); } )
+    .attr("r", 7)
+    .style("fill", function (d) { return myColor(d.componentCode) } )
+        // -3- Trigger the functions for hover
+    //.on("mouseover", showTooltip )
+    //.on("mousemove", moveTooltip )
+    //.on("mouseleave", hideTooltip )
+   ;
+  
+   //add legend for each component
+   var size = 20
+   var allgroups = ["CO", "NO2", "O3", "PM10", "SO2"]
+   svg.selectAll("myrect")
+    .data(allgroups)
+    .attr("opacity", "1")
+    .enter()
+    .append("circle")
+       .attr("cx", 670)
+       .attr("cy", function(d,i){ return 10 + i*(size+5)}) // 100 is where the first dot appears. 25 is the distance between dots
+       .attr("r", 7)
+       .style("fill", function(d){ return myColor(d)})
+      // .on("mouseover", highlight)
+      // .on("mouseleave", noHighlight);
+
+       svg.selectAll("mylabels")
+       .data(allgroups)
+       .enter()
+       .append("text")
+         .attr("x", 670 + size*.8)
+         .attr("y", function(d,i){ return i * (size + 5) + (size/2)}) 
+         .style("fill", function(d){ return myColor(d)})
+         .text(function(d){ return d})
+         .attr("text-anchor", "left")
+         .style("alignment-baseline", "middle")
+        // .on("mouseover", highlight)
+        // .on("mouseleave", noHighlight)
+
 })
