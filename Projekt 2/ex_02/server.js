@@ -65,6 +65,8 @@ let visualisation = () => {
     socket.emit("visualisation", avgs)
 }
 
+
+
 let get_data_task_2 = () => {
     console.log("reading in data...")
     get_data_co()
@@ -742,8 +744,33 @@ let clean_data_task_2 = () => {
     })
 }
 
+let scatterplot_visualization = () => {
+    console.log("Received request for Scatterplot")
+    var json_data = fs.readFileSync("../data_01/Feinstaub_2019.json", "utf8")
+    var datafile = JSON.parse(json_data)
+    let data = datafile.data
+    let keys = Object.keys(data)
+    var avgs = {};
+    for (let i = 0; i < keys.length; i++){
+        let entry = data[keys[i]]
+        let keys_of_entry = Object.keys(entry)
+        let sum = 0
+        for (let j = 0; j < keys_of_entry.length; j++){
+            let item = entry[keys_of_entry[j]]
+            sum = sum + item[2]
+            avg = sum/keys_of_entry.length
+            if (avg != 0){
+                avgs[i] = {avg};
+            }
+        }
+    }
+    socket.emit("scatterplot_drawing", avgs)
+}
+
 
 socket.on("paint_histogram", visualisation)
+
+socket.on("paint_Scatterplot", scatterplot_visualization)
     
 socket.on("disconnect", disconnect)
 
